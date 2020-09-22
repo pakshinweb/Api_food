@@ -1,0 +1,12 @@
+Api_food/vendor/
+docker/data/
+
+Api_food/resources/*
+
+Api_food/storage/*.key
+Api_food/.env
+Api_food/.phpunit.result.cache
+Api_food/.env.backup
+Api_food/npm-debug.log
+Api_food/yarn-error.log
+Api_food/composer.lock
