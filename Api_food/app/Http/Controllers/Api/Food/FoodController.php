@@ -32,7 +32,7 @@ class FoodController extends Controller
         $food->fill($request->all());
         $food->save();
 
-        return response();
+        return response($food);
     }
 
     public function destroy($id)
