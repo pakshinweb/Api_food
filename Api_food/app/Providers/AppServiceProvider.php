@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
             $token =    env('TELEGRAM_TOKEN', null);
             $id_chat =  env('TELEGRAM_ID_CHAT', null);
-            $mess = "ID:". $food->id ." name:" . $food->name . "save in DB";
+            $mess = "ID:". $food->id ." name:" . $food->name . " save in DB";
 
 //            https://api.telegram.org/bot1002967319:AAHwv9_bnEblRPUlHeaBXOjeCOwO7o72oY8/sendMessage?chat_id=313308702&text=PING
 
