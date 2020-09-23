@@ -17,7 +17,7 @@ class FoodController extends Controller
 
     public function show($id)
     {
-        return response(Food::find($id));
+        return response(Food::findOrFail($id));
     }
 
     public function store(FoodStoreRequest $request)
