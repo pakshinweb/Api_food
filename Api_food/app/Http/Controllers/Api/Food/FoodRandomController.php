@@ -10,7 +10,7 @@ class FoodRandomController extends Controller
 {
     public function randomFood()
     {
-        $random = 3;
+
         return response(Food::inRandomOrder()->limit(1)->get());
     }
 }
