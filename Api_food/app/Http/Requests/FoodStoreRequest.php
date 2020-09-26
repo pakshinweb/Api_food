@@ -26,7 +26,7 @@ class FoodStoreRequest extends FormRequest
         return [
             'name' =>            'required',
             'glycaemic_index' => 'required',
-            'time_food' =>       'required'
+            'category_id' =>       'required'
         ];
     }
 }
