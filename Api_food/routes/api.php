@@ -19,8 +19,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Api Eat
-Route::group(['namespace' => 'Api\Food'], function ()  {
-    Route::get('/food/random', 'FoodRandomController@randomFood');
-    Route::apiresource('/food', 'FoodController');
+Route::group(['prefix' => 'food','namespace' => 'Api\Food'], function ()  {
+    Route::apiresource('/', 'FoodController');
+    Route::apiresource('/category', 'CategoryController');
+
+    Route::get('/now', 'FoodController@getFoodByTime');
+    Route::get('/random', 'FoodController@getFoodRandom');
+    Route::get('/breakfast', 'FoodController@getFoodByCategory');
+    Route::get('/lunch', 'FoodController@getFoodByCategory');
+    Route::get('/dinner', 'FoodController@getFoodByCategory');
+    Route::get('/snack', 'FoodController@getFoodByCategory');
+
 });
 
