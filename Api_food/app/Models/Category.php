@@ -10,17 +10,28 @@ class Category extends Model
     protected $table = 'categorys';
     protected $fillable = ['name'];
 
-    protected static $category_id = [
-        1 => 'breakfast',   // from 7 to 11
-        2 => 'lunch',       // from 13 to 15
-        3 => 'dinner',      // from 18 to 20
-        4 => 'snack',       // at another time(12,16,17)
+    const INTERVAL = [
+        'breakfast' => ['start' => '07:00:00', 'end' => '11:00:00'],
+        'lunch'     => ['start' => '13:00:00', 'end' => '15:00:00'],
+        'dinner'    => ['start' => '18:00:00', 'end' => '20:00:00'],
+        'snack'     => ['start' => '00:00:00', 'end' => '23:00:00']
     ];
 
     static public function getIdCategory($name)
     {
-        $arr = self::$category_id;
-        return array_search($name, $arr);
+        $arr = self::INTERVAL;
+        return array_search($name, array_keys($arr)) + 1;
     }
+
+    static public function getNowIdCategory($time = null)
+    {
+        $now = (new \DateTime($time))->format('H:i:s');
+        foreach (self::INTERVAL as $label => $interval){
+            if ($now >= $interval['start'] and $now < $interval['end'])
+                return self::getIdCategory($label);
+        }
+        return self::getIdCategory('snack');
+    }
+
 
 }

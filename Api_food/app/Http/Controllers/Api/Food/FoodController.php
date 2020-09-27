@@ -45,26 +45,22 @@ class FoodController extends Controller
 
     public function getFoodRandom()
     {
-
         return response(Food::inRandomOrder()->limit(1)->get());
     }
 
-    public function getFoodByTime()
+    public function getNowFood()
     {
-        date_default_timezone_set(env('TIMEZONE',null));
-        $now_time = time();
-        print_r(getdate($now_time));
-
-
-
+        $idCategory = Category::getNowIdCategory();
+        return Food::getFoodByIdCategory($idCategory);
     }
 
     public function getFoodByCategory(Request $request)
     {
         $url = explode('/', $request->url());
-        $name_category = end($url);
+        $nameCategory = end($url);
+        $idCategory = Category::getIdCategory($nameCategory);
 
-        return Food::getFoodByCategory($name_category);
+        return Food::getFoodByIdCategory($idCategory);
 
     }
 
