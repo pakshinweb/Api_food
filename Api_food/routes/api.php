@@ -23,7 +23,7 @@ Route::group(['prefix' => 'food','namespace' => 'Api\Food'], function ()  {
     Route::apiresource('/', 'FoodController');
     Route::apiresource('/category', 'CategoryController');
 
-    Route::get('/now', 'FoodController@getFoodByTime');
+    Route::get('/now', 'FoodController@getNowFood');
     Route::get('/random', 'FoodController@getFoodRandom');
     Route::get('/breakfast', 'FoodController@getFoodByCategory');
     Route::get('/lunch', 'FoodController@getFoodByCategory');
