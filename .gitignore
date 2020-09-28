@@ -10,3 +10,4 @@ Api_food/.env.backup
 Api_food/npm-debug.log
 Api_food/yarn-error.log
 Api_food/composer.lock
+Api_food/test.php
