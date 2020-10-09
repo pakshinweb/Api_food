@@ -14,26 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+//'middleware' => 'jwt.verify'
+
+Route::group(['prefix' => 'food', 'namespace' => 'Api\Food', 'middleware' => 'jwt.verify'], function ()  {
+    Route::apiresource('/', 'FoodController');
+    Route::apiresource('/category', 'CategoryController');
 });
-//, 'middleware' => 'auth:api'
+
+Route::group(['namespace' => 'Api\Food', 'middleware' => 'jwt.verify'], function () {
+    Route::get('/phpinfo', 'LoginController@phpinfo');
+    Route::post('/logout', 'LoginController@logout');
+    Route::post('/refresh', 'LoginController@refresh');
+    Route::post('/me', 'LoginController@me');
+});
+
 Route::group(['prefix' => 'food', 'namespace' => 'Api\Food'], function ()  {
-
-Route::apiresource('/', 'FoodController');
-Route::apiresource('/category', 'CategoryController');
-
+    Route::get('/{id}', 'FoodController@show')->where('id', '[0-9]+');;
+    Route::get('/now', 'GetFoodController@getFoodNow');
+    Route::get('/random', 'GetFoodController@getFoodRandom');
+    Route::get('/breakfast', 'GetFoodController@getFoodByCategory');
+    Route::get('/lunch', 'GetFoodController@getFoodByCategory');
+    Route::get('/dinner', 'GetFoodController@getFoodByCategory');
+    Route::get('/snack', 'GetFoodController@getFoodByCategory');
 });
 
-// Api Eat
-Route::group(['prefix' => 'food', 'namespace' => 'Api\Food'], function ()  {
+Route::post('/login', 'Api\Food\LoginController@login');
 
-    Route::get('/now', 'FoodController@getNowFood');
-    Route::get('/random', 'FoodController@getFoodRandom');
-    Route::get('/breakfast', 'FoodController@getFoodByCategory');
-    Route::get('/lunch', 'FoodController@getFoodByCategory');
-    Route::get('/dinner', 'FoodController@getFoodByCategory');
-    Route::get('/snack', 'FoodController@getFoodByCategory');
-
-});
 

@@ -14,10 +14,11 @@ class FoodController extends Controller
 
     public function index()
     {
+
         return response(Food::all());
     }
 
-    public function show($id)
+    public function show( $id)
     {
         return response(Food::findOrFail($id));
     }
@@ -41,27 +42,6 @@ class FoodController extends Controller
     {
         Food::destroy($id);
         return response('',200);
-    }
-
-    public function getFoodRandom()
-    {
-        return response(Food::inRandomOrder()->limit(1)->get());
-    }
-
-    public function getNowFood()
-    {
-        $idCategory = Category::getNowIdCategory();
-        return Food::getFoodByIdCategory($idCategory);
-    }
-
-    public function getFoodByCategory(Request $request)
-    {
-        $url = explode('/', $request->url());
-        $nameCategory = end($url);
-        $idCategory = Category::getIdCategory($nameCategory);
-
-        return Food::getFoodByIdCategory($idCategory);
-
     }
 
 

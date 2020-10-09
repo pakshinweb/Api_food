@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Auth\AuthenticationException;
 
 class Authenticate
 {
@@ -15,13 +14,8 @@ class Authenticate
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next )
     {
-
-        if (Auth::check()) {
             return $next($request);
-        }
-        abort(404);
-
     }
 }
