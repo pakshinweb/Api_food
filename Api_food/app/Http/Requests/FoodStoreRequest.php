@@ -25,8 +25,8 @@ class FoodStoreRequest extends FormRequest
     {
         return [
             'name'            => 'required',
-            'glycaemic_index' => 'required',
-            'category_id'     => 'required'
+            'glycaemic_index' => 'required|integer',
+            'category_id'     => 'exists:categorys,id',
         ];
     }
 }

@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 class GetFoodController extends Controller
 {
 
-
     public function getFoodRandom()
     {
         return response(Food::inRandomOrder()->limit(1)->get());
@@ -19,19 +18,12 @@ class GetFoodController extends Controller
 
     public function getFoodNow()
     {
-
-        return Food::getFoodByIdCategory(Category::getNowIdCategory());
+        return Food::getFoodByCategory(Category::getNowIdCategory());
     }
 
-    public function getFoodByCategory(Request $request)
+    public function getFoodByCategory($name)
     {
-        $url = explode('/', $request->url());
-        $nameCategory = end($url);
-        $idCategory = Category::getIdCategory($nameCategory);
-
-        return Food::getFoodByIdCategory($idCategory);
-
+        return Food::getFoodByCategory($name);
     }
-
 
 }

@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//'middleware' => 'jwt.verify'
-
-Route::group(['prefix' => 'food', 'namespace' => 'Api\Food', 'middleware' => 'jwt.verify'], function ()  {
-    Route::apiresource('/', 'FoodController');
-    Route::apiresource('/category', 'CategoryController');
+Route::group(['namespace' => 'Api\Food', 'middleware' => 'jwt.verify'], function () {
+    Route::apiresource('food', 'FoodController')->only(['store','update','destroy']);
+    Route::apiresource('/food/category', 'CategoryController');
 });
 
-Route::group(['namespace' => 'Api\Food', 'middleware' => 'jwt.verify'], function () {
+Route::post('/login', 'Api\Food\LoginController@login');
+//,'middleware' => 'jwt.verify'
+Route::group(['namespace' => 'Api\Food','middleware' => 'jwt.verify','middleware' => 'jwt.verify'], function () {
     Route::get('/phpinfo', 'LoginController@phpinfo');
     Route::post('/logout', 'LoginController@logout');
     Route::post('/refresh', 'LoginController@refresh');
@@ -29,15 +29,13 @@ Route::group(['namespace' => 'Api\Food', 'middleware' => 'jwt.verify'], function
 });
 
 Route::group(['prefix' => 'food', 'namespace' => 'Api\Food'], function ()  {
-    Route::get('/{id}', 'FoodController@show')->where('id', '[0-9]+');;
+    Route::get('/', 'FoodController@index');
+    Route::get('/{id}', 'FoodController@show')->where('id', '[0-9]+');
     Route::get('/now', 'GetFoodController@getFoodNow');
     Route::get('/random', 'GetFoodController@getFoodRandom');
-    Route::get('/breakfast', 'GetFoodController@getFoodByCategory');
-    Route::get('/lunch', 'GetFoodController@getFoodByCategory');
-    Route::get('/dinner', 'GetFoodController@getFoodByCategory');
-    Route::get('/snack', 'GetFoodController@getFoodByCategory');
+    Route::get('/{name}', 'GetFoodController@getFoodByCategory');
 });
 
-Route::post('/login', 'Api\Food\LoginController@login');
+
 
 

@@ -17,20 +17,18 @@ class Category extends Model
         'snack'     => ['start' => '00:00:00', 'end' => '23:00:00']
     ];
 
-    static public function getIdCategory($name)
-    {
-        $arr = self::INTERVAL;
-        return array_search($name, array_keys($arr)) + 1;
-    }
 
     static public function getNowIdCategory($time = null)
     {
         $now = (new \DateTime($time))->format('H:i:s');
+
         foreach (self::INTERVAL as $label => $interval){
+
             if ($now >= $interval['start'] and $now < $interval['end'])
-                return self::getIdCategory($label);
+                return $label;
+
         }
-        return self::getIdCategory('snack');
+        return self::INTERVAL[3];
     }
 
 

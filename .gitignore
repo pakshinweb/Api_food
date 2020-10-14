@@ -1,6 +1,6 @@
 Api_food/vendor/
 docker/data/
-
+Api_food/node_modules/
 Api_food/resources/*
 
 Api_food/storage/*.key
